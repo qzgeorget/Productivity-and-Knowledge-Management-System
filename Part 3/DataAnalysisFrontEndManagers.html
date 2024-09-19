@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>DataAnalysis</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Include jQuery and jQuery UI libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Include jQuery UI CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="DataAnalysisFrontEndManagers.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <div><h1>Data Analysis</h1></div>
+        <div class="row" id="TitleCard">
+            <div class="col-md-6" id="TitleCard-Name"><h2>John Smith (Manager)</h2></div>
+            <div class="col-md-6" id="TitleCard-DropDown">
+                <select id="ProjectSelectionDropDown" class="form-select">
+                    <option value="default">-- Please Select --</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row" id="MainDisplay">
+            <div class="col-md-12">
+                <div id="TitleBracket"><h3>Welcome to your analytics page, select your project!</h3></div>
+            </div>
+            <div class="col-md-12">
+                <div id="TaskProgression">
+                    <div id="GraphTabs">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item"><a class="nav-link" href="#TaskCompletedTab">Task Completed</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#HoursWorkedTab">Hours Worked</a></li>
+                        </ul>
+                        <div id="TaskCompletedTab" class="tab-pane"><h6>The "Task Completed vs Sprints Bar Chart" visualizes the progress of task completion over multiple sprints within a project. 
+                          Each bar represents a sprint, and the height of the bar corresponds to the number of tasks completed during that sprint.
+                          <br> - The horizontal axis of the chart displays the sprints, typically labeled with their respective sprint numbers or names. 
+                          <br> - The vertical axis represents the number of tasks completed.</h6>
+                          <h6 id="TaskCompletedDescription">This chart enables you to track the pace of task completion over time, identify sprint-to-sprint variations, and assess the project's overall progress towards its goals.</h6></div>
+                        <div id="HoursWorkedTab" class="tab-pane"><h6>The "Hours Worked vs Sprints Bar Chart" visualizes the distribution of hours worked across multiple sprints within a project.
+                          Each bar in the chart represents a sprint, with the height of the bar indicating the total number of hours worked during that sprint.
+                          <br> - The horizontal axis of the chart displays the sprints, typically labeled with their respective sprint numbers or names.
+                          <br> - The vertical axis represents the total hours worked during each sprint.</h6>
+                          <h6 id="HoursWorkedDescription">This chart provides insights into the allocation of time resources throughout the project's sprints, allowing you to analyze patterns in work hours distribution, identify trends, and evaluate the overall effort invested in different phases of the project.</h6></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div id="TaskDistribution">
+                    <h4 id="TaskDistribution-Title">Task Composition</h4>
+                    <div class="row">
+                        <div class="col-md-6" id="TaskDistribution-Type"><h6>The "Task Type Distribution Pie Chart" provides a visual representation of the distribution of tasks across different categories or types within a project.
+                          Each segment of the pie chart represents a specific task type, with the size of the segment proportional to the percentage of tasks belonging to that category.</h6>
+                          <h6 id="TaskTypeDescription">This chart offers insights into the composition of tasks within the project, helping you understand the relative significance of different task types in the overall workflow.</h6></div>
+                        <div class="col-md-6" id="TaskDistribution-Status"><h6>The "Task Status Distribution Doughnut Chart" offers a visual breakdown of the distribution of tasks across different statuses or stages within a project.
+                          Each segment of the doughnut chart represents a specific task status, such as "To Do," "In Progress," or "Finished," with the size of the segment reflecting the proportion of tasks in that status.</h6>
+                          <h6 id="TaskStatusDescription">This chart provides insights into the current status of tasks in the project, identify tasks that require attention, and prioritize workflow activities accordingly.</h6></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="Footer">
+                <div class="col-md-4" id="Footer-Text">
+                  To empower organizations to achieve their goals and unlock their full potential. 
+                  <br>At Make It All, we are committed to excellence, integrity, and customer satisfaction. 
+                  <br>Contact us to transform your business and make your vision a reality.
+                </div>
+                <div class="col-md-4" id="Footer-Logo"><img src="Make-it-AllLogo.png" alt="[MakeItAll Logo]"></div>
+                <div class="col-md-4" id="Footer-Links">
+                  <a href="ToNavigation.html" class="button">Home</a>
+                  <a href="ToChatSystem.html" class="button">Chat System</a>
+                  <a href="LogOut.html" class="button">Log Out</a>
+                </div>
+              </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script type="module" src="DataAnalysisFrontEndManagers.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+

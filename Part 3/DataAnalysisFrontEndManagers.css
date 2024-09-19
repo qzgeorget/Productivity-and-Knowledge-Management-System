@@ -1,0 +1,119 @@
+
+/* Body Styles */
+body {
+    background-color: white;
+}
+
+/* Foundation style for Bootstrap Grid */
+.container {
+    padding: 15px;
+    align-items: center;
+    height: 1500px;
+}
+
+.col-md-12{
+    justify-content: center;
+    flex-grow: 1;
+}
+.col-md-6{
+    justify-content: center;
+    flex-grow: 1;
+}
+
+/* Heading and Paragraph Styles */
+h1 {
+    font-size: 64px;
+}
+h2 {
+    font-size: 48px;
+}
+h3 {
+    font-size: 32px;
+}
+h4 {
+    font-size: 24px;
+}
+h6 {
+    line-height: 1.5;
+    font-style: italic;
+    font-weight: 400;
+}
+p {
+    text-align: left;
+    font-style: italic;
+}
+
+/* Main Display Styles */
+#MainDisplay {
+    background-color: #dcebf5;
+    border-radius: 15px;
+    justify-content: center;
+    min-height: 500px;
+}
+
+    /* Title Card Styles */
+    #TitleCard-Name {
+        justify-content: left;
+    }
+    #TitleCard-DropDown {
+        justify-content:right;
+        width: auto;
+        max-width: 215px;
+    }
+
+    /* Graph Styles*/
+    #TitleBracket {
+        padding: 15px;
+    }
+    #GraphTabs {
+        background-color: white;
+        border: 0;
+        justify-content: center;
+    }
+    ul {
+        background-color: white;
+        border: 0;
+    }
+    .tab-pane {
+        width: auto;
+        justify-content: center;
+    }
+    .nav-tabs {
+        justify-content: right;
+    }
+
+    /* Pie and Doughnut Styles */
+    #TaskDistribution-Type, #TaskDistribution-Status {
+        width: 75px;
+        padding: 15px;
+        text-align: center;
+    }
+
+
+/* Footer Styles */
+#Footer {
+    font-weight: 100;
+    font-size: 15px;
+    padding: 15px;
+    background-color: rgb(75, 160, 196);
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    text-align: left;
+}
+#Footer-Logo {
+    align-content: center;
+}
+img {
+    max-width: 100%;
+    padding: 15px;
+}
+#Footer-Links {
+    text-align: center;
+    align-content: center;
+}
+    a {
+        padding: 15px;
+        color: white;
+    }
+
+
