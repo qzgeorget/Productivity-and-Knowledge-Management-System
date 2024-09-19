@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <title>CHAT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="chat_gui.css">
+    <script src=" https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="main">
+
+        <div id="sidebar">
+            <button class="sidebar-button" id="home-button"><img src="home.svg" alt= "Home"></button>
+            <button class="sidebar-button" id="groups-button"><img src="groups.svg" alt= "See group"></button>
+            <button class="sidebar-button" id="settings-button"><img src="settings.svg" alt= "Settings"></button>
+        </div>
+
+        <div id="menu">
+            <div class="search-container">
+                <input type="text" class="search-input" id="search-field" name="search" placeholder="&#x1F50D; Enter for search...">
+            </div>
+            <div id="chat-navbar">
+                <div class="filter-dropdown">
+                    <label for="filter" class="sort-by">Sort by:</label>
+                    <select id="filter">
+                        <option value="unread">Unread</option>
+                        <option value="recent">Recent</option>
+                        <option value="oldest">Oldest</option>
+                    </select>
+                </div>   
+                <button class="groups-button"><img src="add-group.svg" alt= "Create group"></button>             
+                <button class="button" id="add-button"><img src="add.svg" alt="Search Chats"></button>
+            </div>
+        </div>
+
+        <div id="chat"></div>
+
+    </div>
+    <script src="chat.js"></script>
+    
+</body>
+</html>

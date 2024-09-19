@@ -1,0 +1,192 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex; /* Set body to use flexbox */
+}
+
+#main {
+    display: flex;
+    flex: 1; /* Adjust flex property to allow the main content to expand */
+    width: 100vw;
+    height: 100vh;
+}
+
+#sidebar {
+    width: 2vw;
+    background-color: black;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Arrange buttons vertically */
+}
+
+.sidebar-button {
+    margin-bottom: 10px; 
+    border: none;
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Horizontally center the content */
+    align-items: center; /* Vertically center the content */
+}
+
+#menu{
+    flex: 1; /* Allow the menu to take remaining space */
+    background-color: whitesmoke;
+    padding: 10px;
+    width: 97vw;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-left: 1%;
+    margin-bottom: 2%;
+}
+
+.search-input-wrapper {
+    position: relative;
+}
+
+.search-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px; /* Adjust border-radius to make it rounded */
+    width: 15vw; /* Adjust width as needed */
+}
+
+.search-input::placeholder {
+    color: #999; /* Set placeholder text color to grey */
+}
+
+#chat-navbar {
+    display: flex;
+    align-items: center; /* Center vertically */
+    margin-bottom: 3vh;
+}
+
+.filter-dropdown {
+    margin-right: auto; /* Push to the left */
+}
+
+.sort-by {
+    font-size: smaller; /* Make text smaller */
+}
+
+#add-button img,
+#search-button img, 
+#delete-button img,
+.sidebar-button img,
+.groups-button img{
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+}
+
+#add-button,
+#search-button, 
+#delete-button,
+#groups-button,
+#settings-button,
+#home-button,
+.sidebar-button,
+.groups-button{
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    transition: transform 0.2s ease;
+}
+
+#add-button:hover,.groups-button:hover, 
+#search-button:hover, #delete-button:hover,
+.sidebar-button:hover{
+    transform: scale(1.3);
+}
+
+.contacts-container {
+    overflow-y: scroll;
+    padding: 15px;
+}
+
+.contacts {
+    padding: 10px;
+    background-color: white;
+    margin-bottom: 3vh;
+    transition: transform 0.2s ease;
+}
+
+.contacts:hover,#send-button:hover
+{
+    background-color: black;
+    cursor: pointer;
+    color:white;
+    transform: scale(1.1);
+}
+
+.contacts:hover{
+    padding: 5%;
+}
+
+#delete-button img {
+    margin-right: 5px;
+}
+
+#chat{
+    width: 79vw;
+    padding: 10px;
+    display: none;
+}
+
+#contact-name-container {
+    height: 5vh;
+    background-color: transparent;
+}
+
+#contact-name-title {
+    color: black;
+    border-bottom: 3px solid #ccc;
+}
+
+.messages-container {
+    max-height: 80vh;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+}
+
+.sent-messages,
+.received-messages {
+    height: 10vh;
+    width: 27vw;
+    border-width: 15px 15px 0 0;
+    border-radius: 11%;
+    margin-bottom: 3vh;
+}
+
+.sent-messages {
+    background-color: lightseagreen;
+    color: white;
+    padding: 10px;
+    align-self: flex-end;
+}
+
+.received-messages {
+    background-color: #f0f0f0;
+    padding: 10px;
+    align-self: flex-start;
+}
+
+#message-input {
+    width: 76vw;
+}
+
+#chat textarea,
+#chat button {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#send-button{
+    margin-left: 45.4vw;
+    margin-top: 4px;
+    background-color: lightseagreen;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
