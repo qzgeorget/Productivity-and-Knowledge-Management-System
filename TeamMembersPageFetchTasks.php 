@@ -1,0 +1,158 @@
+<?php
+// Start or resume the session
+session_start();
+
+// Get the employee number from the session
+$empNo = $_SESSION["empNo"];
+
+// Database connection parameters
+$servername = "localhost";
+$username = "admin";
+$password = "team23";
+$dbname = "MakeItAll";
+
+// Create a new database connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check the database connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Retrieve data from the AJAX POST request
+$orderBy = $_POST['orderBy'];
+$queryText = $_POST['queryText'];
+
+// Base SQL query for retrieving tasks
+$base = "SELECT 
+    Tasks.TaskNo,
+    Tasks.TaskName, 
+    Tasks.Description, 
+    Tasks.ManHours, 
+    Tasks.ProjectNo, 
+    Tasks.Deadline, 
+    Tasks.Status,
+    Employees.Name AS AssignedBy
+FROM 
+    Tasks
+JOIN 
+    TaskAssignments ON TaskAssignments.TaskNo = Tasks.TaskNo
+JOIN 
+    Employees ON Tasks.AssignedBy = Employees.EmployeeNo
+WHERE 
+    TaskAssignments.EmployeeNo = ?";
+
+// Build the SQL query based on orderBy and queryText
+if ($queryText == '') {
+    switch ($orderBy) {
+        case 'Deadline':
+            $sql = $base . " ORDER BY Tasks.Deadline;";
+            break;
+        case 'ManHours':
+            $sql = $base . " ORDER BY Tasks.ManHours;";
+            break;
+        case 'ProjectNo':
+            $sql = $base . " ORDER BY Tasks.ProjectNo;";
+            break;
+        default:
+            $sql = $base . " ORDER BY Tasks.Status DESC;";
+    }
+} else {
+    $baseSearch = $base . " AND (Tasks.TaskName LIKE '%$queryText%' OR Tasks.Description LIKE '%$queryText%' OR Employees.Name LIKE '%$queryText%')";
+    switch ($orderBy) {
+        case 'Deadline':
+            $sql = $baseSearch . " ORDER BY Tasks.Deadline;";
+            break;
+        case 'ManHours':
+            $sql = $baseSearch . " ORDER BY Tasks.ManHours;";
+            break;
+        case 'ProjectNo':
+            $sql = $baseSearch . " ORDER BY Tasks.ProjectNo;";
+            break;
+        default:
+            $sql = $baseSearch . " ORDER BY Tasks.Status DESC;";
+    }
+}
+
+// Prepare and execute the SQL query
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $empNo);
+$stmt->execute();
+$result = $stmt->get_result();
+$stmt->close();
+$conn->close();
+?>
+
+<!-- Loop through the result set and render task content -->
+<?php while ($row = $result->fetch_assoc()) : ?>
+    <div class="panel panel-default" data-toggle="modal" data-target="#task<?php echo $row['TaskNo']; ?>Modal">
+        <div class="panel-heading"><?php echo $row['TaskName']; ?></div>
+        <div class="panel-body">
+            <p>Assigned By: <?php echo $row['AssignedBy']; ?></p>
+            <p>Deadline: <?php echo $row['Deadline']; ?></p>
+            <p>Man-Hours Required: <?php echo $row['ManHours']; ?> hours</p>
+            <p>Project Code: PRJ-<?php echo $row['ProjectNo']; ?></p>
+            <p>Status: <?php echo $row['Status']; ?></p>
+        </div>
+    </div>
+
+    <div class="modal fade" id="task<?php echo $row['TaskNo']; ?>Modal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><?php echo $row['TaskName']; ?></h4>
+                </div>
+                <div class="modal-body">
+                    <p>Task Description: <?php echo $row['Description']; ?></p>
+                    <p>Assigned By: <?php echo $row['AssignedBy']; ?></p>
+                    <p>Deadline: <?php echo $row['Deadline']; ?></p>
+                    <p>Man-Hours Required: <?php echo $row['ManHours']; ?> hours</p>
+                    <p>Project Code: PRJ-<?php echo $row['ProjectNo']; ?></p>
+
+                    <!-- Radio buttons to update task status -->
+                    <div class="radio">
+                        <input type="hidden" name="taskNo" value="<?php echo $row['TaskNo']; ?>">
+                        <label>
+                            <input type="radio" name="status" value="Not Started"> Not Started
+                        </label>
+                        <label>
+                            <input type="radio" name="status" value="In Progress"> In Progress
+                        </label>
+                        <label>
+                            <input type="radio" name="status" value="Finished"> Finished
+                        </label>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endwhile; ?>
+
+<!-- JavaScript Section -->
+<script>
+    // Event handler for radio button click to update task status
+    $(document).ready(function () {
+        $('input[type="radio"]').click(function () {
+            var selectedStatus = $(this).val();
+            var taskNo = $(this).closest('.modal-content').find('input[name="taskNo"]').val(); // Retrieve taskNo from the modal
+
+            $.ajax({
+                url: "UpdateTaskStatus.php",
+                method: "POST",
+                data: {
+                    taskNo: taskNo,
+                    newStatus: selectedStatus
+                },
+                success: function (data) {
+                    $('#result').html(data);
+                    location.reload();
+                }
+            });
+        });
+    });
+</script>

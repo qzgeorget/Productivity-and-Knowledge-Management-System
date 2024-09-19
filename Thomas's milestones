@@ -1,0 +1,286 @@
+<?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+session_start();
+$empNo = $_SESSION["empNo"];
+$projectNo = isset($_GET['ProjectNo']) ? $_GET['ProjectNo'] : '';
+$role = isset($_GET['Role']) ? $_GET['Role'] : '';
+
+$servername = "localhost";
+$username = "admin";
+$password = "team23";
+$dbname = "MakeItAll";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$query = "SELECT DISTINCT EmployeeNo FROM ProjectAssignments WHERE ProjectNo = $projectNo";
+$result = $conn->query($query);
+
+$queryTasks = "SELECT Deadline, ManHours, Status, Description FROM Tasks WHERE ProjectNo = $projectNo and Milestone = 1";
+$resultTasks = $conn->query($queryTasks);
+
+// Store task deadlines in an array
+$taskDeadlines = array();
+while ($row = $resultTasks->fetch_assoc()) {
+    $taskDeadlines[] = $row['Deadline'];
+}
+
+// Initialize an array to store the task data
+$taskDataArray = array();
+
+foreach ($taskDeadlines as $deadline) {
+    $queryTasksData = "SELECT Deadline, ManHours, Status, Description FROM Tasks WHERE ProjectNo = $projectNo AND Deadline = '$deadline'";
+    $resultTasksData = $conn->query($queryTasksData);
+
+    $taskData = array();
+    while ($row = $resultTasksData->fetch_assoc()) {
+        $taskData[] = array(
+            'ManHours' => $row['ManHours'],
+            'Status' => $row['Status'],
+            'Description' => $row['Description']
+        );
+    }
+
+    // Store the task data in the array
+    $taskDataArray[$deadline] = $taskData;
+}
+
+$encodedTaskData = json_encode($taskDataArray);
+
+// Echo the encoded task data as a JavaScript variable
+echo "<script>var taskData = $encodedTaskData;</script>";
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <p class="navbar-text">
+                <img src="mialogo.png" alt="Logo Description" width="300" height="80">
+            </p>
+            <div class="forum-buttons pull-right">
+                <a href="mainforum.html" class="forum-button">Forum</a>
+                <a href="Manager.html" class="forum-button">Productivity</a>
+                <a href="index.php" class="forum-button">Sign Out</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Display EmpNo as the title below the navbar -->
+<div class="container-fluid content-container">
+        <div class="row content">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="well fixed-height">
+                    <a href="teamleader01.html" style="text-decoration: none; color: inherit;">
+                        <h4>Team Members</h4>
+                        <?php     
+                        if ($result->num_rows > 0) {
+                            echo '<ul class="bullet-list">';
+                            // Loop through the results and display each team member
+                            while ($row = $result->fetch_assoc()) {
+                                $employeeNo = $row['EmployeeNo'];  
+                                $nameQuery = "SELECT name FROM Employees WHERE EmployeeNo = '$employeeNo'";
+                                $nameResult = $conn->query($nameQuery);
+                                if ($employeeNo == $empNo) {
+                                    continue; 
+                                }
+                                
+                                if ($nameResult->num_rows > 0) {
+                                    $nameRow = $nameResult->fetch_assoc();
+                                    $employeeName = $nameRow['name'];
+                                    echo '<li><div class="list-item"><a href="TeamMembersPage_1.0.html">' . $employeeName . '</a></div></li>';
+                                } else {
+                                    // Handle the case where no name is found
+                                    echo '<li><div class="list-item">Unknown Employee</div></li>';
+                                }
+                            }
+                            echo '</ul>';
+                        } else {
+                            echo 'No team members found';
+                        }
+                        ?>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="well fixed-height">
+                </div>
+            </div>
+        </div>
+        <div class = "row">
+            <div class="row">
+            <div class="col-sm-3">
+            </div>
+              <div class="col-sm-6 text-center">
+                  <div class="well fixed-height1">
+                      <h4>Project Milestones</h4>
+                      <table id="calendarTable" class="calendar" border="1">
+                        <tr>
+                            <th colspan="7" style="text-align: center; font-weight: bold;">February 2024</th>
+                        </tr>
+                        <tr>
+                            <th class="day-header">Sun</th><th class="day-header">Mon</th><th class="day-header">Tue</th><th class="day-header">Wed</th><th class="day-header">Thu</th><th class="day-header">Fri</th><th class="day-header">Sat</th>
+                        </tr>
+                        <tr>
+                            <td class="empty-cell"></td><td class="empty-cell"></td><td data-month="2" data-day="1">1</td><td data-month="2" data-day="2">2</td><td data-month="2" data-day="3">3</td><td data-month="2" data-day="4">4</td><td data-month="2" data-day="5">5</td>
+                        </tr>               
+                        <tr>
+                            <td data-month="2" data-day="6">6</td><td data-month="2" data-day="7">7</td><td data-month="2" data-day="8">8</td><td data-month="2" data-day="9">9</td><td data-month="2" data-day="10">10</td><td data-month="2" data-day="11">11</td><td data-month="2" data-day="12">12</td>
+                        </tr>       
+                        <tr>
+                            <td data-month="2" data-day="13">13</td><td data-month="2" data-day="14">14</td><td data-month="2" data-day="15">15</td><td data-month="2" data-day="16">16</td><td data-month="2" data-day="17">17</td><td data-month="2" data-day="18">18</td><td data-month="2" data-day="19">19</td>
+                        </tr>
+                        <tr>
+                            <td data-month="2" data-day="20">20</td><td data-month="2" data-day="21">21</td><td data-month="2" data-day="22">22</td><td data-month="2" data-day="23">23</td><td data-month="2" data-day="24">24</td><td data-month="2" data-day="25">25</td><td data-month="2" data-day="26">26</td>
+                        </tr>
+                        <tr>
+                            <td data-month="2" data-day="27">27</td><td data-month="2" data-day="28">28</td><td data-month="2" data-day="29">29</td><td data-month="2" data-day="30">30</td><td class="empty-cell"></td><td class="empty-cell"></td><td class="empty-cell"></td>
+                        </tr>
+                    </table>
+                      <button onclick="toggleCalendar()" class="styled-button">Switch Months</button>
+                      <script>
+                        var isMarch = false;
+                        var taskDeadlines = <?php echo json_encode($taskDeadlines); ?>;
+                    
+                        function highlightTasks() {
+                            taskDeadlines.forEach(function (deadline) {
+                                var deadlineDate = new Date(deadline);
+                                var dayOfMonth = deadlineDate.getDate();
+                                var month = deadlineDate.getMonth() + 1;
+                        
+                                if ((isMarch && month === 3) || (!isMarch && month === 2)) {
+                                    var targetCell = $('#calendarTable td[data-day="' + dayOfMonth + '"][data-month="' + month + '"]');
+                        
+                                    targetCell.addClass('task-deadline').attr('data-toggle', 'modal').attr('data-target', '#milestone' + dayOfMonth);
+                        
+                                    targetCell.click(function () {
+                                        $('.modal').remove();
+                                        var modalContent = `
+                                            <div class="modal fade" id="milestone${dayOfMonth}" role="dialog">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            <h4 class="modal-title">Milestone ${month}/${dayOfMonth}/24</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div id="taskDataSection"></div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        `;
+                                    
+                                        // Append the modal content to the body
+                                        $('body').append(modalContent);
+                                    
+                                        // Output Task Data
+                                        var taskDataSection = $('#taskDataSection');
+                                        taskDataSection.append('<h5>Task Data:</h5>');
+                                    
+                                        for (var taskDeadline in taskData) {
+                                            var tasks = taskData[taskDeadline];
+                                            if (taskDeadline === deadline) {
+                                                for (var i = 0; i < tasks.length; i++) {
+                                                    taskDataSection.append('<div class="task-details">');
+                                                    taskDataSection.append('<p>Man-Hours: ' + tasks[i].ManHours + '</p>');
+                                                    taskDataSection.append('<p>Status: ' + tasks[i].Status + '</p>');
+                                                    taskDataSection.append('<p>Description: ' + tasks[i].Description + '</p>');
+                                                    taskDataSection.append('</div>');
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    
+                        $(document).ready(function () {
+                            highlightTasks();
+                        });
+                        function toggleCalendar() {
+                            var calendarTable = $('#calendarTable');
+                        
+                            if (isMarch) {
+                                // If it's March, switch to February
+                                calendarTable.html(`
+                                    <tr>
+                                        <th colspan="7" style="text-align: center; font-weight: bold;">February 2024</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="day-header">Sun</th><th class="day-header">Mon</th><th class="day-header">Tue</th><th class="day-header">Wed</th><th class="day-header">Thu</th><th class="day-header">Fri</th><th class="day-header">Sat</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="empty-cell"></td><td class="empty-cell"></td><td data-month="2" data-day="1">1</td><td data-month="2" data-day="2">2</td><td data-month="2" data-day="3">3</td><td data-month="2" data-day="4">4</td><td data-month="2" data-day="5">5</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-month="2" data-day="6">6</td><td data-month="2" data-day="7">7</td><td data-month="2" data-day="8">8</td><td data-month="2" data-day="9">9</td><td data-month="2" data-day="10">10</td><td data-month="2" data-day="11">11</td><td data-month="2" data-day="12">12</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-month="2" data-day="13">13</td><td data-month="2" data-day="14">14</td><td data-month="2" data-day="15">15</td><td data-month="2" data-day="16">16</td><td data-month="2" data-day="17">17</td><td data-month="2" data-day="18">18</td><td data-month="2" data-day="19">19</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-month="2" data-day="20">20</td><td data-month="2" data-day="21">21</td><td data-month="2" data-day="22">22</td><td data-month="2" data-day="23">23</td><td data-month="2" data-day="24">24</td><td data-month="2" data-day="25">25</td><td data-month="2" data-day="26">26</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-month="2" data-day="27">27</td><td data-month="2" data-day="28">28</td><td data-month="2" data-day="29">29</td><td class="empty-cell"></td><td class="empty-cell"></td><td class="empty-cell"></td><td class="empty-cell"></td>
+                                    </tr>
+                                `);
+                            } else {
+                                // If it's February, switch to March
+                                calendarTable.html(`
+                                    <tr>
+                                        <th colspan="7" style="text-align: center; font-weight: bold;">March 2024</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="day-header">Sun</th><th class="day-header">Mon</th><th class="day-header">Tue</th><th class="day-header">Wed</th><th class="day-header">Thu</th><th class="day-header">Fri</th><th class="day-header">Sat</th>
+                                    </tr>
+                                    <tr>
+                                        <td data-month="3" data-day="1">1</td><td data-month="3" data-day="2">2</td><td data-month="3" data-day="3">3</td><td data-month="3" data-day="4">4</td><td data-month="3" data-day="5">5</td><td data-month="3" data-day="6">6</td><td data-month="3" data-day="7">7</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-month="3" data-day="8">8</td><td data-month="3" data-day="9">9</td><td data-month="3" data-day="10">10</td><td data-month="3" data-day="11">11</td><td data-month="3" data-day="12">12</td><td data-month="3" data-day="13">13</td><td data-month="3" data-day="14">14</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-month="3" data-day="15">15</td><td data-month="3" data-day="16">16</td><td data-month="3" data-day="17">17</td><td data-month="3" data-day="18">18</td><td data-month="3" data-day="19">19</td><td data-month="3" data-day="20">20</td><td data-month="3" data-day="21">21</td>
+                                    </tr>
+                                    <tr>
+                                       <td data-month="3" data-day="22">22</td><td data-month="3" data-day="23">23</td><td data-month="3" data-day="24">24</td><td data-month="3" data-day="25">25</td><td data-month="3" data-day="26">26</td><td data-month="3" data-day="27">27</td><td data-month="3" data-day="28">28</td>
+                                    </tr>
+                                    <tr>
+                                       <td data-month="3" data-day="29">29</td><td data-month="3" data-day="30">30</td><td data-month="3" data-day="31">31</td><td class="empty-cell"></td><td class="empty-cell"></td><td class="empty-cell"></td><td class="empty-cell"></td>
+                                    </tr>
+                                `);
+                            }
+                        
+                            isMarch = !isMarch;
+                            highlightTasks();
+                        }
+                    </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

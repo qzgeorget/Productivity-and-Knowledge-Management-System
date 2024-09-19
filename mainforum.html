@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>KMF</title>
+    <style>
+        body {
+            background-color: #30363d;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            width: 100%;
+            background-color: #1c1f23;
+        }
+
+        .header h1 {
+            text-align: center;
+            margin-top: 10px;
+            color: white;
+        }
+
+        .logo {
+            width: 260px;
+            height: 80px;
+            position: absolute;
+            top: 5px;
+            left: 4px;
+            border-radius: 10px;
+            border: 2px solid;
+        }
+
+        .post-card {
+            display: flex;
+            background-color: #606870;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            max-width: 1300px;
+            width: 95%;
+            height: 95px;
+            margin-left: 10px;
+        }
+
+        .tags {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tag {
+            background-color: #30363d;
+            color: #fff;
+            padding: 2px 5px;
+            border-radius: 5px;
+            font-size: 12px;
+            margin: 2px 0;
+        }
+
+        .subject-tag {
+            background-color: #30363d;
+            color: #fff;
+            padding: 2px 5px;
+            border-radius: 5px;
+            font-size: 12px;
+            margin: 2px 0;
+        }
+
+        .subject-tag-bullying {
+            background-color: red;
+            color: #fff;
+            padding: 2px 5px;
+            border-radius: 5px;
+            font-size: 12px;
+            margin: 2px 0;
+        }
+
+        .search-bar {
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin-bottom: 20px;
+            width: 95%;
+            margin-top: 100px;
+        }
+
+        .search-bar input[type="text"] {
+            background-color: whitesmoke;
+            width: 70%;
+            border: none;
+            padding: 3px;
+            font-size: 16px;
+        }
+
+        .search-bar select {
+            width: 30%;
+            padding: 3px;
+            font-size: 16px;
+        }
+
+        .search-bar button {
+            background-color: #30363d;
+            color: #fff;
+            padding: 3px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .create-button {
+            background-color: black;
+            padding: 3px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .post-card:hover {
+            box-shadow: 0 0 12px rgb(3, 212, 249);
+            transform: scale(1.015);
+            background-color: rgb(211, 210, 210);
+        }
+
+        .answered {
+            background-color: green;
+            color: #fff;
+            padding: 3px 10px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .not-answered {
+            background-color: rgb(242, 93, 29);
+            color: #fff;
+            padding: 3px 10px;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="TeamMembersPage_1.0.html">
+            <img src="mialogo.png" alt="Mia Logo" class="logo">
+        </a>
+        <h1>KNOWLEDGE MANAGEMENT FORUM</h1>
+    </div>
+    
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search for posts...">
+        <select id="tagFilter">
+            <option value="all">All</option>
+            <option value="Software Development">Software Development</option>
+            <option value="Admin Task">Admin Task</option>
+            <option value="Hardware Issue">Hardware Issue</option>
+            <option value="Printing">Printing</option>
+            <option value="Software Issue">Software Issue</option>
+        </select>
+        <button onclick="submitSearch()">Search</button>
+        <button class="create-button" onclick="goToCreatePost()">Create Post</button>
+    </div>
+
+    <div class="post-card" onclick="viewPost(1)">
+        <h2>Post Title 1</h2>
+        <div class="tags">
+            <div class="tag">Technical</div>
+            <div class="subject-tag">Software Development</div>
+        </div>
+        <div class="answered" id="answered-1">Answered</div>
+    </div>
+
+    <div class="post-card" onclick="viewPost(2)">
+        <h2>Post Title 2</h2>
+        <div class="tags">
+            <div class="tag">Non-Technical</div>
+            <div class="subject-tag">Admin Task</div>
+        </div>
+        <div class="not-answered" id="answered-2">Not Answered</div>
+    </div>
+
+    <div class="post-card" onclick="viewPost(3)">
+        <h2>Post Title 3</h2>
+        <div class="tags">
+            <div class="tag">Technical</div>
+            <div class="subject-tag">Hardware Issue</div>
+        </div>
+        <div class="answered" id="answered-3">Answered</div>
+    </div>
+
+    <div class="post-card" onclick="viewPost(4)">
+        <h2>Post Title 4</h2>
+        <div class="tags">
+            <div class="tag">Technical</div>
+            <div class="subject-tag">Software Issue</div>
+        </div>
+        <div class="answered" id="answered-4">Answered</div>
+    </div>
+    
+    <div class="post-card" onclick="viewPost(5)">
+        <h2>Post Title 5</h2>
+        <div class="tags">
+            <div class="tag">Non-Technical</div>
+            <div class="subject-tag">Printing</div>
+        </div>
+        <div class="not-answered" id="answered-5">Not Answered</div>
+    </div>
+
+    <div class="post-card" onclick="viewPost(6)">
+        <h2>Post Title 6</h2>
+        <div class="tags">
+            <div class="tag">Technical</div>
+            <div class="subject-tag">Software Issue</div>
+        </div>
+        <div class="not-answered" id="answered-6">Not Answered</div>
+    </div>
+    
+
+    <div class="search-results" id="searchResults"></div>
+
+    <script>
+        function viewPost(postId) {
+            window.location.href = 'viewpost.html?id=' + postId;
+        }
+
+        function goToCreatePost() {
+            window.location.href = 'createpost.html';
+        }
+
+        function submitSearch() {
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            const tagFilter = document.getElementById('tagFilter').value;
+            const postCards = document.querySelectorAll('.post-card');
+        
+            postCards.forEach((postCard) => {
+                const postTitle = postCard.querySelector('h2').textContent.toLowerCase();
+                const subjectTag = postCard.querySelector('.subject-tag').textContent;
+        
+                if (
+                    (postTitle.includes(searchQuery) || tagFilter === 'all') &&
+                    (subjectTag === tagFilter || tagFilter === 'all')
+                ) {
+                    postCard.style.display = 'flex';
+                } else {
+                    postCard.style.display = 'none';
+                }
+            });
+        }
+        
+        
+    </script>
+</body>
+</html>

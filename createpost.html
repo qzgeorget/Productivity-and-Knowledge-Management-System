@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create New Post</title>
+    <style>
+        body {
+            background-color: #30363d;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+       
+        .container h2 {
+            color: black;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+        }
+
+        .back-button {
+            background-color: #606870;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            margin-right: 20px;
+        }
+
+        .post-form {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        .post-form h1 {
+            margin: 0;
+            text-align: left;
+        }
+
+        .post-form label {
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .post-form input[type="text"],
+        .post-form textarea,
+        .post-form select {
+            width: 100%;
+            padding: 5px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .post-form select {
+            width: 50%;
+        }
+
+        .post-form .subject-tag-input {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+
+        .post-form .subject-tag-input label {
+            margin: 0 5px 0 0;
+        }
+
+        .post-form .subject-tag-input input {
+            width: 100%;
+        }
+
+        .post-form button {
+            background-color: #30363d;
+            color: #fff;
+            padding: 10px 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .my-posts {
+            text-align: left;
+        }
+
+        .my-posts h2 {
+            text-align: left; 
+        }
+
+        .my-post-card {
+            width: 800px; 
+            background-color: #606870;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 8px; 
+            margin: 5px 0; 
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .my-post-card:hover {
+            box-shadow: 0 0 12px rgb(3, 212, 249);
+            transform: scale(1.013);
+            background-color: rgb(211, 210, 210);
+        }
+
+        .mark-as-answer-button,
+.delete-button {
+    background-color: #30363d;
+    color: #fff;
+    padding: 5px 10px; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    margin: 0 5px; 
+    width: max-content;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-button" onclick="goToForum()">&#8592;</button>
+        </div>
+        <div class="post-form">
+            <h1>Create a New Post</h1>
+            <form id="newPostForm" onsubmit="return submitNewPost()">
+                <label for="postTitle">Title:</label>
+                <input type="text" id="postTitle" name="postTitle" required>
+
+                <label for="postContent">Content:</label>
+                <textarea id="postContent" name="postContent" rows="4" required></textarea>
+
+                <label for="postType">Type:</label>
+                <select id="postType" name="postType">
+                    <option value="technical">Technical</option>
+                    <option value="non-technical">Non-Technical</option>
+                </select>
+
+                <div class="subject-tag-input">
+                    <label for="subjectTag">Subject Tag:</label>
+                    <input type="text" id="subjectTag" name="subjectTag" placeholder="Subject Tag">
+                </div>
+
+                <button type="submit">Create Post</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="my-post-card" onclick="goToPost(1)">
+        <h2>My Post 1</h2>
+        <div class="buttons-container">
+            <div class="mark-as-answer-button" onclick="markAsAnswer(3)">Mark as Answered</div>
+            <div class="delete-button" onclick="deletePost(1)">Delete</div>
+        </div>
+    </div>
+    
+    <div class="my-post-card" onclick="goToPost(2)">
+        <h2>My Post 2</h2>
+        <div class="buttons-container">
+            <div class="mark-as-answer-button" onclick="markAsAnswer(4)">Mark as Answered</div>
+            <div class="delete-button" onclick="deletePost(2)">Delete</div>
+        </div>
+    </div>
+    
+
+    <script>
+        function submitNewPost() {
+            const title = document.getElementById('postTitle').value;
+            const content = document.getElementById('postContent').value;
+            const postType = document.getElementById('postType').value;
+            const subjectTag = document.getElementById('subjectTag').value;
+
+         
+            const newPostCard = document.createElement('div');
+            newPostCard.className = 'my-post-card';
+            newPostCard.onclick = function() {
+                goToPost( );
+            };
+
+            const postTitle = document.createElement('h2');
+            postTitle.textContent = title;
+
+            const markAsAnswerButton = document.createElement('div');
+            markAsAnswerButton.className = 'mark-as-answer-button';
+            markAsAnswerButton.textContent = 'Mark as Answered';
+            markAsAnswerButton.onclick = function(event) {
+                markAsAnswer();
+                event.stopPropagation();
+            };
+
+            
+            newPostCard.appendChild(postTitle);
+            newPostCard.appendChild(markAsAnswerButton);
+
+            
+            const myPostsContainer = document.getElementById('myPostsContainer');
+            myPostsContainer.appendChild(newPostCard);
+
+            alert('New post submitted:\nTitle: ' + title + '\nContent: ' + content + '\nType: ' + postType + '\nSubject Tag: ' + subjectTag);
+
+            return false;
+        }
+
+        function markAsAnswer(postId) {
+            alert('Post ' + postId + ' marked as the answer.');
+            event.stopPropagation();
+        }
+
+        function goToPost(postId) {
+            window.location.href = 'htmlviewpost.html?id=' + postId;
+        }
+
+        function goToForum() {
+            window.location.href = 'mainforum.html';
+        }
+
+        function deletePost(postId) {
+            
+            const postCard = document.querySelector('.my-post-card'); 
+            postCard.parentNode.removeChild(postCard); 
+        
+            alert('Post ' + postId + ' deleted.');
+            event.stopPropagation();
+        }
+
+    </script>
+</body>
+</html>

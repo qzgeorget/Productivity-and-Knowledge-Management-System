@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>KMF</title>
+    <style>
+        body {
+            background-color: #30363d;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            width: 100%;
+            background-color: #1c1f23;
+        }
+
+        .header h1 {
+            text-align: center;
+            margin-top: 10px;
+            color: white;
+            font: serif;
+        }
+
+        .logo {
+            width: 260px;
+            height: 80px;
+            position: absolute;
+            top: 5px;
+            left: 4px;
+            border-radius: 10px;
+            border: 2px solid;
+        }
+
+        .team-chart-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+        }
+
+        .team-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #cad5df;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            max-width: 350px;
+            width: 350px;
+            position: relative;
+            color: white;
+        }
+
+        .tags {
+            background-color: #1c1f23;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px 5px 0 0;
+            font-size: 18px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .tags .tag {
+            margin: 5px 0;
+        }
+
+        .team-chart canvas {
+            max-width: 100%;
+            width: 100%;
+            height: 60%;
+        }
+
+        .search-bar {
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin-bottom: 20px;
+            width: 1290px;
+            margin-top: 100px;
+        }
+
+        .search-bar input[type="text"] {
+            background-color: whitesmoke;
+            width: 70%;
+            border: none;
+            padding: 3px;
+            font-size: 16px;
+        }
+
+        .search-bar button {
+            background-color: #4b4b4b;
+            color: #fff;
+            padding: 3px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .forum-button {
+            background-color: #4b4b4b;
+            color: #fff;
+            padding: 3px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 40px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+</head>
+<body>
+    <div class="header">
+        <a href="TeamMembersPage_1.0.html">
+        <img src="mialogo.png" alt="Mia Logo" class="logo">
+        </a>
+        <h1>TEAM MANAGEMENT</h1>
+    </div>
+
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <button onclick="submitSearch()">Search</button>
+        
+        <button class="create-button" onclick="goToCreatePost()">New Team</button>
+        <a href="mainforum.html">
+            <button class="forum-button">Forum</button>
+        </a>
+    </div>
+
+    <div class="team-chart-container">
+        <div class="team-chart" data-teamname="Team 1" data-teamleader="John Doe" onclick="viewTeam(1)">
+            <div class="tags">
+                <div class="tag">Team Name: Team 1</div>
+                <div class="tag">Team Leader: John Doe</div>
+            </div>
+            <canvas id="teamChart1"></canvas>
+        </div>
+
+        <div class="team-chart" data-teamname="Team 2" data-teamleader="Jane Smith" onclick="viewTeam(2)">
+            <div class="tags">
+                <div class="tag">Team Name: Team 2</div>
+                <div class="tag">Team Leader: Jane Smith</div>
+            </div>
+            <canvas id="teamChart2"></canvas>
+        </div>
+
+        <div class="team-chart" data-teamname="Team 3" data-teamleader="Michael Johnson" onclick="viewTeam(3)">
+            <div class="tags">
+                <div class="tag">Team Name: Team 3</div>
+                <div class="tag">Team Leader: Michael Johnson</div>
+            </div>
+            <canvas id="teamChart3"></canvas>
+        </div>
+
+        <div class="team-chart" data-teamname="Team 4" data-teamleader="Sarah Wilson" onclick="viewTeam(4)">
+            <div class="tags">
+                <div class="tag">Team Name: Team 4</div>
+                <div class="tag">Team Leader: Sarah Wilson</div>
+            </div>
+            <canvas id="teamChart4"></canvas>
+        </div>
+    </div>
+
+    <script>
+        function viewTeam(postId) {
+            window.location.href = 'viewteam.html?id=' + postId;
+        }
+
+        function goToCreatePost() {
+            window.location.href = 'createteam.html';
+        }
+
+        function submitSearch() {
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            const teamCharts = document.querySelectorAll('.team-chart');
+            
+            teamCharts.forEach(chart => {
+                const teamName = chart.getAttribute('data-teamname').toLowerCase();
+                const teamLeader = chart.getAttribute('data-teamleader').toLowerCase();
+
+                if (teamName.includes(searchQuery) || teamLeader.includes(searchQuery)) {
+                    chart.style.display = 'flex';
+                } else {
+                    chart.style.display = 'none';
+                }
+            });
+        }
+
+        const teamChartOptions = {
+            cutout: '70%',
+        };
+
+        const teamData = [
+            { completed: 20, remaining: 80 },
+            { completed: 40, remaining: 60 },
+            { completed: 60, remaining: 40 },
+            { completed: 80, remaining: 20 },
+        ];
+
+        for (let i = 1; i <= 4; i++) {
+            const ctx = document.getElementById(`teamChart${i}`).getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Completed', 'Remaining'],
+                    datasets: [{
+                        data: [teamData[i - 1].completed, teamData[i - 1].remaining],
+                        backgroundColor: ['#33CCFF', 'Dimgray'],
+                    }],
+                },
+                options: teamChartOptions,
+            });
+        }
+    </script>
+
+</body>
+</html>

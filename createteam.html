@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create New Post</title>
+    <style>
+        body {
+            background-color: #30363d;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+       
+        .container h2 {
+            color: black;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+        }
+
+        .back-button {
+            background-color: #606870;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            margin-right: 20px;
+        }
+
+        .team-form {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        .team-form h1 {
+            margin: 0;
+            text-align: left;
+        }
+
+        .team-form label {
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .team-form input[type="text"],
+        .team-form textarea,
+        .team-form select {
+            width: 100%;
+            padding: 5px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .team-form select {
+            width: 50%;
+        }
+
+        .team-form button {
+            background-color: #30363d;
+            color: #fff;
+            padding: 10px 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-button" onclick="goToManager()">&#8592;</button>
+        </div>
+        <div class="team-form">
+            <h1>Create a New Team</h1>
+            <form>
+                <label for="team-name">Team Name:</label>
+                <input type="text" id="team-name" name="team-name"><br>
+              
+                <label for="team-members">Team Members:</label>
+                <textarea id="team-members" name="team-members"></textarea><br>
+              
+                <input type="submit" value="Submit">
+              </form>
+              
+        </div>
+    </div>
+
+    <script>
+        function goToManager() {
+            window.location.href = 'Manager.html';
+        }
+    </script>
+</body>
+</html>

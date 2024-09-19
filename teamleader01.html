@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            background-color: #30363d;
+        }
+
+        header {
+            background: #1c1f23;
+            position:fixed; 
+            top:0px; 
+            left:0px;
+            width: 100%;
+            z-index: 997;
+            height: 120px;
+        }
+
+        header::after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+
+        nav {
+            text-align: center;
+            display:inline-block;
+        }
+        .navbar-text {
+            color: gold;
+            font-size: 55px;
+            text-align: center;
+        }
+
+        .row.content {height: 550px}
+
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 145%;
+    }
+
+    .fixed-height {
+        height: 400px; 
+        overflow: auto; 
+    }
+
+    .bullet-list li {
+        margin-bottom: 5px; 
+    }
+
+    .fit-image {
+        max-width: 80%; 
+        max-height: 80%; 
+        display: block;
+        margin: 0 auto;
+        align-self: center;
+    }
+
+    .content-container {
+    margin-top: 140px; 
+    }
+
+    .forum-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: rgb(209, 178, 4); 
+        color: #fff; 
+        text-decoration: none;
+        border-radius: 5px;
+        margin-right: 10px; 
+        margin-top: 35px;
+        width: 100px;
+        align-items: right;
+    }
+
+    .forum-buttons {
+        float: right;
+        margin-right: 20px; 
+        align-items: right;
+    }
+    .list-item, .separator {
+    display: inline;
+    margin-right: 
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <p class="navbar-text">
+                <img src="mialogo.png" alt="Logo Description" width="300" height="80">
+            </p>
+            <div class="forum-buttons pull-right">
+                <a href="mainforum.html" class="forum-button">Forum</a>
+                <a href="login.php" class="forum-button">Sign Out</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-fluid content-container">
+          <div class="row">
+            <div class="col-sm-3">
+            </div>
+              <div class="col-sm-6">
+                  <div class="well fixed-height">
+                      <h4>Team Members</h4>
+                      <br> </br>
+                      <table class="custom-table" border="1" id="sortable-table" style="width: 100%; border-collapse: collapse; font-family: Arial;">
+                        <tr style="background-color: #f2f2f2; font-weight: bold; text-align: center;">
+                            <td>Name</td>
+                            <td>Hours</td>
+                            <td>Task Completed</td>
+                            <td>Tasks To-Do</td>
+                        </tr>
+                        <tr style="text-align: center;">
+                            <td>Emily Johnson</td>
+                            <td>76</td>
+                            <td>19</td>
+                            <td>5</td>
+                        </tr>
+                        <tr style="text-align: center;">
+                            <td>James Anderson</td>
+                            <td>60</td>
+                            <td>12</td>
+                            <td>6</td>
+                        </tr>
+                        <tr style="text-align: center;">
+                            <td>Sophia Martinez</td>
+                            <td>58</td>
+                            <td>11</td>
+                            <td>8</td>
+                        </tr>
+                        <tr style="text-align: center;">
+                            <td>Benjamin Le</td>
+                            <td>85</td>
+                            <td>23</td>
+                            <td>3</td>
+                        </tr>
+                        <tr style="text-align: center;">
+                            <td>Olivia Davis</td>
+                            <td>46</td>
+                            <td>10</td>
+                            <td>6</td>
+                        </tr>
+                        <tr style="text-align: center;">
+                            <td>Alexander Walker</td>
+                            <td>78</td>
+                            <td>24</td>
+                            <td>2</td>
+                        </tr>
+                        <tr style="text-align: center;">
+                            <td>Ava Thompson</td>
+                            <td>63</td>
+                            <td>17</td>
+                            <td>7</td>
+                        </tr>
+                    </table>
+                    <br></br>
+                    <label for="sort">Sort by: </label>
+                        <select id="sort">
+                            <option value="1">Hours</option>
+                            <option value="2">Task Completed</option>
+                            <option value="3">Tasks To-Do</option>
+                        </select>
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script>
+                            $(document).ready(function () {
+                                $('#sort').on('change', function () {
+                                    var column = $(this).val();
+                                    var $table = $('#sortable-table');
+                        
+                                    var rows = $table.find('tr:gt(0)').toArray();
+                        
+                                    rows.sort(function (a, b) {
+                                        var aValue = $(a).find('td:eq(' + column + ')').text();
+                                        var bValue = $(b).find('td:eq(' + column + ')').text();
+                        
+                                        if (column !== 0) {
+                                            aValue = parseInt(aValue);
+                                            bValue = parseInt(bValue);
+                                        }
+                        
+                                        return aValue - bValue;
+                                    });
+                        
+                                    $table.find('tr:gt(0)').remove();
+                                    $.each(rows, function (index, row) {
+                                        $table.append(row);
+                                    });
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

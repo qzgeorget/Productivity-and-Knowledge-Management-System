@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="TeamMembersPage_1.2.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+</head>
+
+<body>
+    <div class="well well-lg">
+        
+
+        <div class="dropdown pull-right">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Order By
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+            <li><a href="#">Deadline</a></li>
+            <li><a href="#">Man-Hour</a></li>
+            <li><a href="#">Project Code</a></li>
+            </ul>
+        </div>
+
+        <h2>To-Do List</h2>
+        
+        <div class="panel panel-default" data-toggle="modal" data-target="#task1Modal">
+          <div class="panel-heading">Office Order Restock</div>
+          <div class="panel-body">
+            <p>Deadline: 2023-11-15</p>
+            <p>Man-Hours Required: 4 hours</p>
+            <p>Project Code: PRJ-001</p>
+          </div>
+        </div>
+  
+        <div class="modal fade" id="task1Modal" role="dialog">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Office Order Restock</h4>
+              </div>
+              <div class="modal-body">
+                <p>Task Description: Place an order for office paper supplies.</p>
+                <p>Assigned By: John Doe</p>
+                <p>Deadline: 2023-11-15</p>
+                <p>Man-Hours Required: 4 hours</p>
+                <p>Project Code: PRJ-001</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="panel panel-default" data-toggle="modal" data-target="#task2Modal">
+          <div class="panel-heading">Inventory Check</div>
+          <div class="panel-body">
+            <p>Deadline: 2023-11-20</p>
+            <p>Man-Hours Required: 6 hours</p>
+            <p>Project Code: PRJ-002</p>
+          </div>
+        </div>
+  
+        <div class="modal fade" id="task2Modal" role="dialog">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Inventory Check</h4>
+              </div>
+              <div class="modal-body">
+                <p>Task Description: Conduct an inventory check for office paper stock.</p>
+                <p>Assigned By: Jane Smith</p>
+                <p>Deadline: 2023-11-20</p>
+                <p>Man-Hours Required: 6 hours</p>
+                <p>Project Code: PRJ-002</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="panel panel-default" data-toggle="modal" data-target="#task3Modal">
+          <div class="panel-heading">Supplier Evaluation</div>
+          <div class="panel-body">
+            <p>Deadline: 2023-11-25</p>
+            <p>Man-Hours Required: 8 hours</p>
+            <p>Project Code: PRJ-003</p>
+          </div>
+        </div>
+  
+        <div class="modal fade" id="task3Modal" role="dialog">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Supplier Evaluation</h4>
+              </div>
+              <div class="modal-body">
+                <p>Task Description: Evaluate potential paper suppliers for cost-effectiveness.</p>
+                <p>Assigned By: Michael Johnson</p>
+                <p>Deadline: 2023-11-25</p>
+                <p>Man-Hours Required: 8 hours</p>
+                <p>Project Code: PRJ-003</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default" data-toggle="modal" data-target="#task4Modal">
+            <div class="panel-heading">Conference Preparation</div>
+            <div class="panel-body">
+              <p>Deadline: 2023-11-28</p>
+              <p>Man-Hours Required: 15 hours</p>
+              <p>Project Code: PRJ-008</p>
+            </div>
+          </div>
+          
+          <div class="modal fade" id="task4Modal" role="dialog">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Conference Preparation</h4>
+                </div>
+                <div class "modal-body">
+                  <p>Task Description: Organize and prepare for an upcoming industry conference.</p>
+                  <p>Assigned By: Robert White</p>
+                  <p>Deadline: 2023-11-28</p>
+                  <p>Man-Hours Required: 15 hours</p>
+                  <p>Project Code: PRJ-008</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+
+        <div class="panel panel-default" data-toggle="modal" data-target="#task5Modal">
+            <div class="panel-heading">Customer Support Training</div>
+            <div class="panel-body">
+              <p>Deadline: 2023-11-22</p>
+              <p>Man-Hours Required: 6 hours</p>
+              <p>Project Code: PRJ-005</p>
+            </div>
+          </div>
+          
+          <div class="modal fade" id="task5Modal" role="dialog">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Customer Support Training</h4>
+                </div>
+                <div class "modal-body">
+                  <p>Task Description: Organize a training session for customer support staff.</p>
+                  <p>Assigned By: David Miller</p>
+                  <p>Deadline: 2023-11-22</p>
+                  <p>Man-Hours Required: 6 hours</p>
+                  <p>Project Code: PRJ-005</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="panel panel-default" data-toggle="modal" data-target="#task6Modal">
+            <div class="panel-heading">Website Redesign</div>
+            <div class="panel-body">
+              <p>Deadline: 2023-11-24</p>
+              <p>Man-Hours Required: 12 hours</p>
+              <p>Project Code: PRJ-006</p>
+            </div>
+          </div>
+          
+          <div class="modal fade" id="task6Modal" role="dialog">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Website Redesign</h4>
+                </div>
+                <div class "modal-body">
+                  <p>Task Description: Plan and execute a redesign of the company website.</p>
+                  <p>Assigned By: Emily Lewis</p>
+                  <p>Deadline: 2023-11-24</p>
+                  <p>Man-Hours Required: 12 hours</p>
+                  <p>Project Code: PRJ-006</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default" data-toggle="modal" data-target="#task7Modal">
+            <div class="panel-heading">Product Quality Assessment</div>
+            <div class="panel-body">
+              <p>Deadline: 2023-11-26</p>
+              <p>Man-Hours Required: 8 hours</p>
+              <p>Project Code: PRJ-007</p>
+            </div>
+          </div>
+          
+          <div class="modal fade" id="task7Modal" role="dialog">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Product Quality Assessment</h4>
+                </div>
+                <div class "modal-body">
+                  <p>Task Description: Conduct an assessment of product quality and report findings.</p>
+                  <p>Assigned By: Lisa Anderson</p>
+                  <p>Deadline: 2023-11-26</p>
+                  <p>Man-Hours Required: 8 hours</p>
+                  <p>Project Code: PRJ-007</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+    </div>
+
+    <div class="button-container">
+        <a type="button" href="TeamMembersPage_1.0.html" class="btn btn-primary">Return To Dashboard</a>
+      </div>
+</body>

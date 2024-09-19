@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            background-color: #30363d;
+            overflow: hidden;
+        }
+
+        header {
+            background: #1c1f23;
+            position:fixed; 
+            top:0px; 
+            left:0px;
+            width: 100%;
+            z-index: 997;
+            height: 120px;
+        }
+
+        header::after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+
+        nav {
+            text-align: center;
+            display:inline-block;
+        }
+        .navbar-text {
+            color: gold;
+            font-size: 55px;
+            text-align: center;
+        }
+
+        .row.content {height: 550px}
+
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 145%;
+    }
+
+    .fixed-height {
+        height: 300px; 
+        overflow: auto; 
+    }
+
+    .calendar {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+        margin: 10px;
+    }
+
+    .calendar-header {
+        background-color: #333;
+        color: #fff;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .day-header {
+        background-color: #666;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .milestone{
+        background-color: gold;
+    }
+
+    td {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #ddd;
+    }
+
+    .empty-cell {
+        background-color: #f5f5f5;
+    }
+
+    .bullet-list li {
+        margin-bottom: 5px; 
+    }
+
+    .fit-image {
+        max-width: 80%; 
+        max-height: 80%; 
+        display: block;
+        margin: 0 auto;
+        align-self: center;
+    }
+
+    .content-container {
+    margin-top: 140px; 
+    }
+
+    .forum-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: rgb(209, 178, 4); 
+        color: #fff; 
+        text-decoration: none;
+        border-radius: 5px;
+        margin-right: 10px; 
+        margin-top: 35px;
+        width: 120px;
+        align-items: right;
+    }
+
+    .forum-buttons {
+        float: right;
+        margin-right: 20px; 
+        align-items: right;
+    }
+    .list-item, .separator {
+    display: inline;
+    margin-right: 5px; 
+}
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <p class="navbar-text">
+                <img src="mialogo.png" alt="Logo Description" width="300" height="80">
+            </p>
+            <div class="forum-buttons pull-right">
+                <a href="mainforum.html" class="forum-button">Forum</a>
+                <a href="Manager.html" class="forum-button">Productivity</a>
+                <a href="login.php" class="forum-button">Sign Out</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-fluid content-container">
+        <div class="row content">
+            <div class="row">
+              <div class="col-sm-6">
+                  <div class="well fixed-height">
+                    <a href="teamleader01.html" style="text-decoration: none; color: inherit;">
+                        <h4>Team Members & Daily Task</h4>
+                    </a>
+                      <ul class="bullet-list">
+                        <li><div class="list-item"><a href="TeamMembersPage_1.0.html">Emily Johnson</a></div><div class="separator">- Prepare reports and documents</div></li>
+                        <li><div class="list-item"><a href="TeamMembersPage_1.0.html">James Anderson</a></div><div class="separator">- Handle phone calls and inquiries</div></li>
+                        <li><div class="list-item"><a href="TeamMembersPage_1.0.html">Sophia Martinez</a></div><div class="separator">- Change data entry and update records</div></li>
+                        <li><div class="list-item"><a href="TeamMembersPage_1.0.html">Benjamin Le</a></div><div class="separator">- Organize schedule and meetings</div></li>
+                        <li><div class="list-item"><a href="TeamMembersPage_1.0.html">Olivia Davis</a></div><div class="separator">- Answer user help and emails</div></li>
+                        <li><div class="list-item"><a href="TeamMembersPage_1.0.html">Alexander Walker</a></div><div class="separator">- Print off all documents</div></li>
+                        <li><div class="list-item"><a href="TeamMembersPage_1.0.html">Ava Thompson</a></div><div class="separator">- Answer questions in the forum</div></li>
+                    </ul>
+                  </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="well fixed-height">
+                    <a href="TeamMembersPage_1.0.html" style="text-decoration: none; color: inherit;">
+                        <h4>View Personal</h4>
+                    </a>
+                    <div style="display: flex; align-items: center;">
+                        <table class="custom-table" border="1" id="sortable-table" style="width: 45%; border-collapse: collapse; font-family: Arial; margin-right: 70px;">
+                            <tr style="text-align: center;">
+                                <td>Hours</td>
+                                <td>97</td>
+                            </tr>
+                            <tr style="text-align: center;">
+                                <td>Task Completed</td>
+                                <td>24</td>
+                            </tr>
+                            <tr style="text-align: center;">
+                                <td>Tasks To-Do</td>
+                                <td>8</td>
+                            </tr>
+                        </table>
+                        <div style="width: 30%;">
+                            <canvas id="myPieChart" width="50" height="50"></canvas>
+                        </div>
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <script>
+                            var data = {
+                                labels: ['Completed', 'To-Do'],
+                                datasets: [{
+                                    data: [24, 8],
+                                    backgroundColor: ['#36A2EB', '#FFCE56'],
+                                }],
+                            };
+                        
+                            var ctx = document.getElementById('myPieChart').getContext('2d');
+                            var myPieChart = new Chart(ctx, {
+                                type: 'pie',
+                                data: data,
+                                options: {
+                                    legend: {
+                                        display: false, 
+                                    },
+                                    tooltips: {
+                                        enabled: false, 
+                                    },
+                                },
+                            });
+                        </script>
+                        
+                    </div>   
+                </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+            </div>
+              <div class="col-sm-6">
+                  <div class="well fixed-height">
+                      <h4>Project Milestones</h4>
+                      <table class="calendar" border="1">
+                        <tr>
+                            <td colspan="7" style="text-align: center; font-weight: bold;">November</td>
+                        </tr>
+                          <tr>
+                              <th class="day-header">Sun</th>
+                              <th class="day-header">Mon</th>
+                              <th class="day-header">Tue</th>
+                              <th class="day-header">Wed</th>
+                              <th class="day-header">Thu</th>
+                              <th class="day-header">Fri</th>
+                              <th class="day-header">Sat</th>
+                          </tr>
+                          <tr>
+                              <td class="empty-cell"></td>
+                              <td class="empty-cell"></td>
+                              <td>1</td>
+                              <td>2</td>
+                              <td>3</td>
+                              <td>4</td>
+                              <td>5</td>
+                          </tr>
+      
+                          <tr>
+                              <td>6</td>
+                              <td data-toggle="modal" data-target="#milestone1" class="milestone">7</td>
+
+
+
+                              <div class="modal fade" id="milestone1" role="dialog">
+                                <div class="modal-dialog modal-lg">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                      <h4 class="modal-title">Milestone 07/11/23</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <p>Milestone Description: Finish website for NexaTech Innovations and present to clients.</p>
+                                      <p>Date Started: 20/08/23</p>
+                                      <p>Deadline: 07/11/23</p>
+                                      <p>Man-Hours Required: 156 hours</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+
+
+                              <td>8</td>
+                              <td>9</td>
+                              <td>10</td>
+                              <td>11</td>
+                              <td>12</td>
+                          </tr>
+      
+                          <tr>
+                              <td>13</td>
+                              <td>14</td>
+                              <td>15</td>
+                              <td data-toggle="modal" data-target="#milestone2" class="milestone">16</td>
+
+
+
+                              <div class="modal fade" id="milestone2" role="dialog">
+                                <div class="modal-dialog modal-lg">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                      <h4 class="modal-title">Milestone 16/11/23</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <p>Milestone Description: Finish website for EcoFusion Solutions and present to clients.</p>
+                                      <p>Date Started: 03/05/23</p>
+                                      <p>Deadline: 16/11/23</p>
+                                      <p>Man-Hours Required: 204 hours</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <td>17</td>
+                              <td>18</td>
+                              <td>19</td>
+                          </tr>
+      
+                          <tr>
+                              <td>20</td>
+                              <td>21</td>
+                              <td>22</td>
+                              <td>23</td>
+                              <td>24</td>
+                              <td data-toggle="modal" data-target="#milestone3" class="milestone">25</td>
+
+
+
+                              <div class="modal fade" id="milestone3" role="dialog">
+                                <div class="modal-dialog modal-lg">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                      <h4 class="modal-title">Milestone 25/11/23</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <p>Milestone Description: Finish website for SynthiScape Labs and present to clients.</p>
+                                      <p>Date Started: 30/09/23</p>
+                                      <p>Deadline: 25/11/23</p>
+                                      <p>Man-Hours Required: 130 hours</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <td>26</td>
+                          </tr>
+      
+                          <tr>
+                              <td>27</td>
+                              <td>28</td>
+                              <td>29</td>
+                              <td>30</td>
+                              <td class="empty-cell"></td>
+                              <td class="empty-cell"></td>
+                          </tr>     
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

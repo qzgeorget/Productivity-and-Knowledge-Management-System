@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forums</title>
+
+    <style>
+        body {
+            background-color: #30363d;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #30363d;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+        }
+
+        .back-button {
+            background-color: #606870;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .container {
+            background-color: #606870;
+            margin: 20px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .post {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #fff;
+        }
+
+        .post-header {
+            background-color: #f0f0f0;
+            padding: 5px;
+        }
+
+        .comments {
+            margin-top: 20px;
+        }
+
+        .comment {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .delete-comment-btn {
+            background: none;
+            border: none;
+            font-size: 1em;
+            cursor: pointer;
+            color: #007bff;
+        }
+
+        .comment-form {
+            margin-top: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 5px;
+        }
+
+        button {
+            background-color: #30363d;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+</style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <button class="back-button" onclick="goBack()">&#8592;</button>
+            <h1>Forums</h1>
+        </header>
+        <div class="post">
+            <div class="post-header">
+                <h2>Post Title</h2>
+                <p>Posted by User123 - <span id="postDateTime">October 20, 2023 14:30:00</span></p>
+            </div>
+            <div class="post-content">
+                <p>This is the post content.</p>
+            </div>
+        </div>
+        <div class="comments" id="comments">
+            <div class="comment">
+                <div class="comment-header">
+                    <span>User456 - <span>October 21, 2023 10:15:00</span></span>
+                    <button class="delete-comment-btn" onclick="deleteComment(this)"></button>
+                </div>
+                <p>This is a comment on the post.</p>
+            </div>
+            <div class="comment">
+                <div class="comment-header">
+                    <span>User789 - <span>October 22, 2023 16:45:00</span></span>
+                    <button class="delete-comment-btn" onclick="deleteComment(this)"></button>
+                </div>
+                <p>Another comment on the post.</p>
+            </div>
+        </div>
+        <div class="comment-form">
+            <h3>Add a Comment:</h3>
+            <form onsubmit="addComment(); return false;">
+                <textarea id="commentText" placeholder="Your comment..."></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        function deleteComment(button) {
+            const comment = button.parentElement.parentElement;
+            comment.remove();
+        }
+
+        function goBack() {
+            window.location.href = 'mainforum.html';
+        }
+
+        function addComment() {
+            const commentText = document.getElementById('commentText').value;
+            const censoredText = censorProfanity(commentText);
+            const commentsContainer = document.getElementById('comments');
+            const commentDiv = document.createElement('div');
+            commentDiv.className = 'comment';
+
+            const currentDate = new Date();
+            const formattedDate = currentDate.toLocaleString();
+
+            commentDiv.innerHTML = `
+                <div class="comment-header">
+                    <span>User - <span>${formattedDate}</span></span>
+                    <button class="delete-comment-btn" onclick="deleteComment(this)"></button>
+                </div>
+                <p>${censoredText}</p>
+            `;
+            commentsContainer.appendChild(commentDiv);
+            document.getElementById('commentText').value = '';
+        }
+
+        function censorProfanity(text) {
+            const profanityList = ['fuck','shit'];
+            for (const word of profanityList) {
+                const regex = new RegExp(word, 'gi');
+                text = text.replace(regex, '*'.repeat(word.length));
+            }
+            return text;
+        }
+    </script>
+</body>
+</html>

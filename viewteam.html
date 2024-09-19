@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams</title>
+
+    <style>
+        body {
+            background-color: #30363d;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #30363d;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+        }
+
+        .back-button {
+            background-color: #606870;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .container {
+            background-color: #606870;
+            margin: 20px;
+            padding: 20px;
+            width: 850px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .team {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #fff;
+        }
+
+        .team-header {
+            background-color: #f0f0f0;
+            padding: 5px;
+        }
+
+        .tasks {
+            margin-top: 20px;
+        }
+
+        .task {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+        }
+
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .delete-task-btn {
+            background: none;
+            border: none;
+            font-size: 1em;
+            cursor: pointer;
+            color: #007bff;
+        }
+        .dropbtn {
+            display: flex;
+            background-color: #CCC;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #606870;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 800px;
+            width: 95%;
+            height: 95px;
+            left: 10px;
+            position: relative;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {background-color: #ddd;}
+
+        .dropdown:hover .dropdown-content {display: block;}
+
+        .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+        textarea {
+            width: 100%;
+            padding: 5px;
+        }
+
+        button {
+            background-color: #30363d;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+</style>
+</head>
+<body>
+    <div class="container" style = "float: left;">
+        <header>
+            <button class="back-button" onclick="goBack()">&#8592;</button>
+            <h1>Team X</h1>
+        </header>
+        <div class="team">
+            <div class="team-header">
+                <h2>Project Name</h2>
+                <p>Team leader: John Doe</p>
+            </div>
+            <div class="team-content">
+                <p>Team Members:<br>
+                    -Mary Brown<br>
+                    -Charlie Smith<br>
+                    -Greg Kowal
+                </p>
+            </div>
+        </div>
+            <div class="dropdown">
+            <div class="dropbtn">
+                <h2>Task 1<br></h2>
+                <p>Deadline - 23/10/23 12:00<br></p>
+                <p>progress - 20%</p>
+                <div class="dropdown-content">
+                    <a href="#">Remove Task</a>
+                    <a href="#">Edit Task</a>
+                    <a href="#">Mark as complete</a>
+                </div>
+            </div>
+        </div>
+        <div class="dropdown">
+            <div class="dropbtn">
+                <h2>Task 2<br></h2>
+                <p>Deadline - 27/10/23 12:00<br></p>
+                <p>progress - 50%</p>
+                <div class="dropdown-content">
+                    <a href="#">Remove Task</a>
+                    <a href="#">Edit Task</a>
+                    <a href="#">Mark as complete</a>
+                </div>
+            </div>
+        </div>
+        <div class="task-form">
+            <h3>Add a Task:</h3>
+            <form onsubmit="addTask(); return false;">
+                <label for="Deadline">Deadline:</label>
+                <input type="date" id="Deadline" name="Deadline">
+                <textarea id="taskText" placeholder="Task Description..."></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div class = "container" style = "float: right;">
+        <h3>Manage Members</h3>
+        <div class="dropdown">
+            <button class="dropbtn">John Doe</button>
+            <div class="dropdown-content">
+                <a href="#">Remove Member</a>
+                <a href="#">Edit Member</a>
+                <a href="#">Assign Task</a>
+              </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Mary Brown</button>
+            <div class="dropdown-content">
+                <a href="#">Remove Member</a>
+                <a href="#">Edit Member</a>
+                <a href="#">Assign Task</a>
+              </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Charlie Smith</button>
+            <div class="dropdown-content">
+                <a href="#">Remove Member</a>
+                <a href="#">Edit Member</a>
+                <a href="#">Assign Task</a>
+              </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Greg Kowal</button>
+            <div class="dropdown-content">
+                <a href="#">Remove Member</a>
+                <a href="#">Edit Member</a>
+                <a href="#">Assign Task</a>
+              </div>
+        </div>
+        <div style="position: relative;">
+            <button type="AddMember">Add Member</button>
+        </div>
+    </div>
+    <script>
+        function goBack() {
+            window.location.href = 'Manager.html';
+        }
+    </script>
+</body>
+</html>
